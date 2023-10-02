@@ -1,0 +1,25 @@
+#searchText{
+    border-radius: .2rem;
+    background-color: rgb(233, 227, 227);
+    border:none;
+    outline: 1px solid black;
+    height: 20px;
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+button{
+    border-radius: .25rem;
+    border:none;
+    outline: 1px solid black;
+    width: 70px;
+    height: 23px;
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+

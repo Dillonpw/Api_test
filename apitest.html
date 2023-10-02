@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <form>
+            <input id="searchText" type="text" placeholder="your gif description here"/>
+            <button id="searchBtn" type="submit">Button</button>
+        </form>
+        <img src="#" alt="image will display here" />
+        <script>
+            const searchText = document.getElementById('searchText');
+            const searchBtn = document.getElementById('searchBtn');
+            const img = document.querySelector('img');
+        
+            searchBtn.addEventListener('click', function (e) {
+                event.preventDefault();
+        
+                const query = searchText.value;
+                fetch(`https://api.giphy.com/v1/gifs/translate?api_key=tmAocrMpvWXeVUh87TNzqjw2d7P2wG7J&s=${query}`, { mode: 'cors' })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (response) {
+                        img.src = response.data.images.original.url;
+                    });
+            });
+        </script>
+        
+    </body>
+</html>
