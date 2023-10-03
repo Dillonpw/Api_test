@@ -4,11 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <form>
-            <input id="searchText" type="text" placeholder="your gif description here"/>
+            <input
+                id="searchText"
+                type="text"
+                placeholder="What are you looking for?"
+            />
             <button id="searchBtn" type="submit">Button</button>
         </form>
         <img src="#" alt="image will display here" />
@@ -16,20 +20,27 @@
             const searchText = document.getElementById('searchText');
             const searchBtn = document.getElementById('searchBtn');
             const img = document.querySelector('img');
-        
-            searchBtn.addEventListener('click', function (e) {
+
+            searchBtn.addEventListener('click', async function (event) {
                 event.preventDefault();
-        
+
                 const query = searchText.value;
-                fetch(`https://api.giphy.com/v1/gifs/translate?api_key=tmAocrMpvWXeVUh87TNzqjw2d7P2wG7J&s=${query}`, { mode: 'cors' })
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (response) {
-                        img.src = response.data.images.original.url;
-                    });
+
+                try {
+                    const response = await fetch(
+                        `https://api.giphy.com/v1/gifs/translate?api_key=tmAocrMpvWXeVUh87TNzqjw2d7P2wG7J&s=${query}`,
+                        { mode: 'cors' }
+                    );
+
+                    const data = await response.json();
+                    img.src = data.data.images.original.url;
+                } catch (error) {
+                    console.error(
+                        'There was an error fetching the GIF:',
+                        error
+                    );
+                }
             });
         </script>
-        
     </body>
 </html>
